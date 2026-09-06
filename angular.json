@@ -10,7 +10,15 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "path": "src/app/components",
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "path": "src/app/services",
+          "type": "service",
+          "addTypeToClassName": true,
+          "skipTests": true
         }
       },
       "root": "",
@@ -29,9 +37,7 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "server": "src/main.server.ts",
             "outputMode": "server",
             "security": {
