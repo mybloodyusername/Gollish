@@ -30,7 +30,9 @@
 .container {
   position: relative;
   width: 320px;
-  height: 320px;
+  /* Match the SVG's cropped viewBox (224×285) so the element hugs the cat.
+     The tail overflows the frame's right edge and is drawn outside the box. */
+  aspect-ratio: 224 / 285;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,40 +46,86 @@
 }
 
 /* ─── ANIMATIONS ─── */
+/* All pivots use transform-box: fill-box + percentages, i.e. relative to each
+   part's own bounding box. Absolute px origins would break now that the viewBox
+   no longer starts at (0,0). */
 
-/* Subtle breathing & idle bobbing */
+/* Subtle breathing & idle bobbing (pivots at the feet) */
 .cat-body-group {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
   animation: breathe 3.6s ease-in-out infinite;
-  transform-origin: 200px 340px;
 }
 
 /* Head slight tilt on hover or periodic bob */
 .cat-head {
-  transform-origin: 200px 210px;
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
   animation: head-bob 5s ease-in-out infinite;
 }
 
-/* Tail swish */
+/* Tail swish (pivots where the tail meets the body) */
 .tail {
-  transform-origin: 290px 310px;
+  transform-box: fill-box;
+  transform-origin: 0% 100%;
   animation: tail-swish 4s ease-in-out infinite;
 }
 
-/* Ear twitch */
+/* Ear twitch (pivots near each ear base) */
 .left-ear {
-  transform-origin: 145px 135px;
+  transform-box: fill-box;
+  transform-origin: 30% 40%;
   animation: twitch-left 6s ease-in-out infinite;
 }
 
 .right-ear {
-  transform-origin: 255px 135px;
+  transform-box: fill-box;
+  transform-origin: 70% 40%;
   animation: twitch-right 7s ease-in-out infinite 0.7s;
 }
 
-/* Eye blinks */
+/* Eye blinks (squash about the eyes' own center) */
 .pupil {
+  transform-box: fill-box;
   transform-origin: center;
   animation: blink 4.5s ease-in-out infinite;
+}
+
+/* Closed eyes: hidden by default, swapped in on hover/touch */
+.closed-eyes {
+  opacity: 0;
+  transition: opacity 0.12s ease-in;
+}
+
+/* While hovered (desktop) or touched (mobile): hide boba eyes, show happy arcs.
+   The .eyes-closed class is toggled by pointer events for touch support;
+   :hover is scoped to real-pointer devices to avoid sticky emulated hover on touch. */
+@media (hover: hover) {
+  .container:hover {
+    .pupil {
+      animation: none;
+      opacity: 0;
+      transition: opacity 0.1s ease-out;
+    }
+
+    .closed-eyes {
+      opacity: 1;
+      transition: opacity 0.15s ease-out 0.05s;
+    }
+  }
+}
+
+.container.eyes-closed {
+  .pupil {
+    animation: none;
+    opacity: 0;
+    transition: opacity 0.1s ease-out;
+  }
+
+  .closed-eyes {
+    opacity: 1;
+    transition: opacity 0.15s ease-out 0.05s;
+  }
 }
 
 /* Keyframes */

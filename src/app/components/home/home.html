@@ -1,50 +1,62 @@
-<p>home works!</p>
+<h1>{{ eyesClosed() }}</h1>
 
-<hr/>
-
-<div class="container">
-  <svg class="cat-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+<div
+  class="container"
+  [class.eyes-closed]="eyesClosed()"
+  (pointerdown)="purr()"
+  (pointerup)="unPurr()"
+  (pointerleave)="unPurr()"
+  (pointercancel)="unPurr()"
+>
+  <!-- viewBox frames only the cat (whiskers to ground shadow), centered on the
+       body (x=200). The tail (x 240–338) deliberately extends past the frame's
+       right edge (312) and renders via overflow: visible. -->
+  <svg class="cat-svg" viewBox="88 91 224 285" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <!-- Ground drop shadow -->
       <radialGradient id="ground-shadow" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stop-color="#b88e99" stop-opacity="0.3"/>
-        <stop offset="100%" stop-color="#b88e99" stop-opacity="0"/>
+        <stop offset="0%" stop-color="#b88e99" stop-opacity="0.3" />
+        <stop offset="100%" stop-color="#b88e99" stop-opacity="0" />
       </radialGradient>
     </defs>
 
     <!-- Soft ground shadow -->
-    <ellipse cx="200" cy="358" rx="110" ry="16" fill="url(#ground-shadow)"/>
+    <ellipse cx="200" cy="358" rx="110" ry="16" fill="url(#ground-shadow)" />
 
     <!-- TAIL (Positioned behind body) -->
-    <path class="tail"
-          d="M 240 310 C 340 310, 360 215, 315 190 C 300 180, 290 195, 305 208 C 330 228, 305 285, 260 288 Z"
-          fill="var(--cat-fur-dark)"/>
+    <path
+      class="tail"
+      d="M 240 310 C 340 310, 360 215, 315 190 C 300 180, 290 195, 305 208 C 330 228, 305 285, 260 288 Z"
+      fill="var(--cat-fur-dark)"
+    />
 
     <g class="cat-body-group">
       <!-- BODY -->
       <!-- Plump, teardrop pear-body sitting upright -->
-      <path d="M 140 335 C 130 260, 150 200, 200 200 C 250 200, 270 260, 260 335 C 255 355, 145 355, 140 335 Z"
-            fill="var(--cat-fur)"/>
+      <path
+        d="M 140 335 C 130 260, 150 200, 200 200 C 250 200, 270 260, 260 335 C 255 355, 145 355, 140 335 Z"
+        fill="var(--cat-fur)"
+      />
 
       <!-- White belly patch -->
-      <ellipse cx="200" cy="285" rx="42" ry="46" fill="var(--cat-white)"/>
+      <ellipse cx="200" cy="285" rx="42" ry="46" fill="var(--cat-white)" />
 
       <!-- BACK FEET (Left & Right sitting paws) -->
-      <ellipse cx="140" cy="336" rx="26" ry="17" fill="var(--cat-fur)"/>
-      <ellipse cx="140" cy="336" rx="18" ry="12" fill="var(--cat-white)"/>
+      <ellipse cx="140" cy="336" rx="26" ry="17" fill="var(--cat-fur)" />
+      <ellipse cx="140" cy="336" rx="18" ry="12" fill="var(--cat-white)" />
 
-      <ellipse cx="260" cy="336" rx="26" ry="17" fill="var(--cat-fur)"/>
-      <ellipse cx="260" cy="336" rx="18" ry="12" fill="var(--cat-white)"/>
+      <ellipse cx="260" cy="336" rx="26" ry="17" fill="var(--cat-fur)" />
+      <ellipse cx="260" cy="336" rx="18" ry="12" fill="var(--cat-white)" />
 
       <!-- FRONT PAWS (tucked neatly in front) -->
       <g class="front-paws">
-        <ellipse cx="180" cy="336" rx="16" ry="13" fill="var(--cat-white)"/>
-        <ellipse cx="220" cy="336" rx="16" ry="13" fill="var(--cat-white)"/>
+        <ellipse cx="180" cy="336" rx="16" ry="13" fill="var(--cat-white)" />
+        <ellipse cx="220" cy="336" rx="16" ry="13" fill="var(--cat-white)" />
         <!-- Toe separator accents -->
-        <line x1="175" y1="334" x2="175" y2="345" stroke="var(--cat-shadow)" stroke-width="2" stroke-linecap="round"/>
-        <line x1="185" y1="334" x2="185" y2="345" stroke="var(--cat-shadow)" stroke-width="2" stroke-linecap="round"/>
-        <line x1="215" y1="334" x2="215" y2="345" stroke="var(--cat-shadow)" stroke-width="2" stroke-linecap="round"/>
-        <line x1="225" y1="334" x2="225" y2="345" stroke="var(--cat-shadow)" stroke-width="2" stroke-linecap="round"/>
+        <line x1="175" y1="334" x2="175" y2="345" stroke="var(--cat-shadow)" stroke-width="2" stroke-linecap="round" />
+        <line x1="185" y1="334" x2="185" y2="345" stroke="var(--cat-shadow)" stroke-width="2" stroke-linecap="round" />
+        <line x1="215" y1="334" x2="215" y2="345" stroke="var(--cat-shadow)" stroke-width="2" stroke-linecap="round" />
+        <line x1="225" y1="334" x2="225" y2="345" stroke="var(--cat-shadow)" stroke-width="2" stroke-linecap="round" />
       </g>
 
       <!-- HEAD GROUP -->
@@ -52,68 +64,133 @@
         <!-- EARS -->
         <!-- Left Ear -->
         <g class="left-ear">
-          <polygon points="132,185 145,100 185,160" fill="var(--cat-fur)" stroke="var(--cat-fur)"
-                   stroke-linejoin="round" stroke-width="10"/>
-          <polygon points="132,175 147,118 175,162" fill="var(--cat-pink)"/>
+          <polygon
+            points="132,185 145,100 185,160"
+            fill="var(--cat-fur)"
+            stroke="var(--cat-fur)"
+            stroke-linejoin="round"
+            stroke-width="10"
+          />
+          <polygon points="132,175 147,118 175,162" fill="var(--cat-pink)" />
         </g>
 
         <!-- Right Ear -->
         <g class="right-ear">
-          <polygon points="268,185 255,100 215,160" fill="var(--cat-fur)" stroke="var(--cat-fur)"
-                   stroke-linejoin="round" stroke-width="10"/>
-          <polygon points="268,175 253,118 225,162" fill="var(--cat-pink)"/>
+          <polygon
+            points="268,185 255,100 215,160"
+            fill="var(--cat-fur)"
+            stroke="var(--cat-fur)"
+            stroke-linejoin="round"
+            stroke-width="10"
+          />
+          <polygon points="268,175 253,118 225,162" fill="var(--cat-pink)" />
         </g>
 
         <!-- Main Head Circle (Slightly squashed oval for chubby cheeks) -->
-        <ellipse cx="200" cy="195" rx="80" ry="70" fill="var(--cat-fur)"/>
+        <ellipse cx="200" cy="195" rx="80" ry="70" fill="var(--cat-fur)" />
 
         <!-- Cute forehead stripes -->
-        <path d="M 200 135 L 200 152" stroke="var(--cat-fur-dark)" stroke-width="6" stroke-linecap="round"/>
-        <path d="M 188 139 L 191 154" stroke="var(--cat-fur-dark)" stroke-width="5" stroke-linecap="round"/>
-        <path d="M 212 139 L 209 154" stroke="var(--cat-fur-dark)" stroke-width="5" stroke-linecap="round"/>
+        <path d="M 200 135 L 200 152" stroke="var(--cat-fur-dark)" stroke-width="6" stroke-linecap="round" />
+        <path d="M 188 139 L 191 154" stroke="var(--cat-fur-dark)" stroke-width="5" stroke-linecap="round" />
+        <path d="M 212 139 L 209 154" stroke="var(--cat-fur-dark)" stroke-width="5" stroke-linecap="round" />
 
         <!-- Cheeks / Muzzle Base -->
-        <ellipse cx="187" cy="216" rx="20" ry="14" fill="var(--cat-white)"/>
-        <ellipse cx="213" cy="216" rx="20" ry="14" fill="var(--cat-white)"/>
+        <ellipse cx="187" cy="216" rx="20" ry="14" fill="var(--cat-white)" />
+        <ellipse cx="213" cy="216" rx="20" ry="14" fill="var(--cat-white)" />
 
         <!-- BLUSH -->
-        <ellipse class="blush" cx="150" cy="208" rx="14" ry="9" fill="var(--cat-pink)" opacity="0.75"/>
-        <ellipse class="blush" cx="250" cy="208" rx="14" ry="9" fill="var(--cat-pink)" opacity="0.75"/>
+        <ellipse class="blush" cx="150" cy="208" rx="14" ry="9" fill="var(--cat-pink)" opacity="0.75" />
+        <ellipse class="blush" cx="250" cy="208" rx="14" ry="9" fill="var(--cat-pink)" opacity="0.75" />
 
         <!-- EYES (Big kawaii boba eyes with primary + secondary catchlights) -->
         <g class="pupil">
           <!-- Left Eye -->
-          <ellipse cx="166" cy="188" rx="13" ry="15" fill="var(--cat-eyes)"/>
-          <circle cx="162" cy="183" r="5" fill="#ffffff"/>
-          <circle cx="171" cy="192" r="2.2" fill="#ffffff"/>
+          <ellipse cx="166" cy="188" rx="13" ry="15" fill="var(--cat-eyes)" />
+          <circle cx="162" cy="183" r="5" fill="#ffffff" />
+          <circle cx="171" cy="192" r="2.2" fill="#ffffff" />
 
           <!-- Right Eye -->
-          <ellipse cx="234" cy="188" rx="13" ry="15" fill="var(--cat-eyes)"/>
-          <circle cx="230" cy="183" r="5" fill="#ffffff"/>
-          <circle cx="239" cy="192" r="2.2" fill="#ffffff"/>
+          <ellipse cx="234" cy="188" rx="13" ry="15" fill="var(--cat-eyes)" />
+          <circle cx="230" cy="183" r="5" fill="#ffffff" />
+          <circle cx="239" cy="192" r="2.2" fill="#ffffff" />
+        </g>
+
+        <!-- CLOSED EYES (happy ^ ^ arcs, shown on hover/touch) -->
+        <g class="closed-eyes">
+          <path
+            d="M 153 190 Q 166 177 179 190"
+            fill="none"
+            stroke="var(--cat-eyes)"
+            stroke-width="4"
+            stroke-linecap="round"
+          />
+          <path
+            d="M 221 190 Q 234 177 247 190"
+            fill="none"
+            stroke="var(--cat-eyes)"
+            stroke-width="4"
+            stroke-linecap="round"
+          />
         </g>
 
         <!-- NOSE -->
-        <polygon points="196,206 204,206 200,211" fill="var(--cat-deep-pink)" stroke="var(--cat-deep-pink)"
-                 stroke-linejoin="round" stroke-width="3"/>
+        <polygon
+          points="196,206 204,206 200,211"
+          fill="var(--cat-deep-pink)"
+          stroke="var(--cat-deep-pink)"
+          stroke-linejoin="round"
+          stroke-width="3"
+        />
 
         <!-- MOUTH (:3 curve) -->
-        <path d="M 191 213 Q 195 220 200 213 Q 205 220 209 213"
-              fill="none" stroke="var(--cat-eyes)" stroke-width="2.5" stroke-linecap="round"/>
+        <path
+          d="M 191 213 Q 195 220 200 213 Q 205 220 209 213"
+          fill="none"
+          stroke="var(--cat-eyes)"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        />
 
         <!-- WHISKERS -->
         <!-- Left side -->
-        <line x1="140" y1="205" x2="105" y2="198" stroke="var(--cat-fur-dark)" stroke-width="2.5"
-              stroke-linecap="round"/>
-        <line x1="138" y1="214" x2="102" y2="218" stroke="var(--cat-fur-dark)" stroke-width="2.5"
-              stroke-linecap="round"/>
+        <line
+          x1="140"
+          y1="205"
+          x2="105"
+          y2="198"
+          stroke="var(--cat-fur-dark)"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        />
+        <line
+          x1="138"
+          y1="214"
+          x2="102"
+          y2="218"
+          stroke="var(--cat-fur-dark)"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        />
         <!-- Right side -->
-        <line x1="260" y1="205" x2="295" y2="198" stroke="var(--cat-fur-dark)" stroke-width="2.5"
-              stroke-linecap="round"/>
-        <line x1="262" y1="214" x2="298" y2="218" stroke="var(--cat-fur-dark)" stroke-width="2.5"
-              stroke-linecap="round"/>
+        <line
+          x1="260"
+          y1="205"
+          x2="295"
+          y2="198"
+          stroke="var(--cat-fur-dark)"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        />
+        <line
+          x1="262"
+          y1="214"
+          x2="298"
+          y2="218"
+          stroke="var(--cat-fur-dark)"
+          stroke-width="2.5"
+          stroke-linecap="round"
+        />
       </g>
     </g>
   </svg>
 </div>
-
