@@ -1,12 +1,16 @@
 <h1>{{ eyesClosed() }}</h1>
 
+<audio src="/purr.mp3" #purrAudio></audio>
+<audio src="/meow-1.mp3" #meow1Audio></audio>
+<audio src="/meow-2.mp3" #meow2Audio></audio>
+
 <div
   class="container"
   [class.eyes-closed]="eyesClosed()"
-  (pointerdown)="purr()"
-  (pointerup)="unPurr()"
-  (pointerleave)="unPurr()"
-  (pointercancel)="unPurr()"
+  (pointerdown)="eyesClosed.set(true); initiated = true"
+  (pointerup)="eyesClosed.set(false)"
+  (pointerleave)="eyesClosed.set(false)"
+  (pointercancel)="eyesClosed.set(false)"
 >
   <!-- viewBox frames only the cat (whiskers to ground shadow), centered on the
        body (x=200). The tail (x 240–338) deliberately extends past the frame's

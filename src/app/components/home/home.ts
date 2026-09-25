@@ -1,5 +1,6 @@
-import { AfterViewInit, Component, ElementRef, signal, viewChild } from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { Component, effect, ElementRef, signal, viewChild } from '@angular/core';
+import { interval, skip } from 'rxjs';
+import { clearTimeout } from 'node:timers';
 
 @Component({
   imports: [],
@@ -7,21 +8,35 @@ import { fromEvent } from 'rxjs';
   styleUrl: './home.scss',
   templateUrl: './home.html',
 })
-export class Home implements AfterViewInit {
+export class Home {
   /** Eyes squint shut while the cat is pressed/hovered. */
   protected readonly eyesClosed = signal<boolean>(false);
-  protected readonly audio = new Audio('/public/purr.mp3');
+  protected readonly purrAudioElement = viewChild.required<ElementRef<HTMLAudioElement>>('purrAudio');
+  protected readonly meow1AudioElement = viewChild.required<ElementRef<HTMLAudioElement>>('meow1Audio');
+  protected readonly meow2AudioElement = viewChild.required<ElementRef<HTMLAudioElement>>('meow2Audio');
+  interval$ = interval(1000);
+  initiated = false;
 
-  constructor() {}
-
-  ngAfterViewInit() {}
-
-  protected purr() {
-    this.eyesClosed.set(true);
-    this.audio.play();
-  }
-
-  protected unPurr() {
-    this.eyesClosed.set(false);
+  constructor() {
+    effect(() => {
+      const eyesClosed = this.eyesClosed();
+      const purr = this.purrAudioElement().nativeElement;
+      const meow1 = this.meow1AudioElement().nativeElement;
+      if (!purr || !this.initiated) return;
+      if (eyesClosed) {
+        purr.play();
+      } else {
+        purr.pause();
+        meow1.play();
+      }
+    });
+    this.interval$.pipe(skip(1)).subscribe((value) => {
+      const eyesClosed = this.eyesClosed();
+      if (eyesClosed) return;
+      if (value % 8 == 0) {
+        const meow2 = this.meow2AudioElement().nativeElement;
+        meow2.play();
+      }
+    });
   }
 }
