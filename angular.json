@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "GollishClient": {
+    "Gollish": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -75,10 +75,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "GollishClient:build:production"
+              "buildTarget": "Gollish:build:production"
             },
             "development": {
-              "buildTarget": "GollishClient:build:development"
+              "buildTarget": "Gollish:build:development"
             }
           },
           "defaultConfiguration": "development"
