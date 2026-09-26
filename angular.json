@@ -67,6 +67,13 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "pages": {
+              "baseHref": "/gollish/",
+              "outputPath": "dist/pages",
+              "outputMode": "static",
+              "ssr": false,
+              "server": false
             }
           },
           "defaultConfiguration": "production"
